@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="A10DanceTheme" parent="@style/_A10DanceTheme"/>
+
+    <style name="_A10DanceTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:editTextBackground">@drawable/a10dancetheme_edit_text_holo_light</item>
+
+        <!--<item name="android:textColorHighlight">#99a32929</item>-->
+        <item name="android:textSelectHandleLeft">@drawable/a10dancetheme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/a10dancetheme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/a10dancetheme_text_select_handle_middle</item>
+
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewA10DanceTheme</item>
+
+        <item name="android:listChoiceIndicatorMultiple">@drawable/a10dancetheme_btn_check_holo_light</item>
+
+        <item name="android:listChoiceIndicatorSingle">@drawable/a10dancetheme_btn_radio_holo_light</item>
+
+        <item name="android:buttonStyle">@style/ButtonA10DanceTheme</item>
+
+        <item name="android:imageButtonStyle">@style/ImageButtonA10DanceTheme</item>
+
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerA10DanceTheme</item>
+
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarA10DanceTheme</item>
+
+        <item name="android:seekBarStyle">@style/SeekBarA10DanceTheme</item>
+
+        <item name="android:ratingBarStyle">@style/RatingBarA10DanceTheme</item>
+
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigA10DanceTheme</item>
+
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallA10DanceTheme</item>
+
+        <item name="android:buttonStyleToggle">@style/ToggleA10DanceTheme</item>
+
+        <item name="android:listChoiceBackgroundIndicator">@drawable/a10dancetheme_list_selector_holo_light</item>
+
+        <item name="android:activatedBackgroundIndicator">@drawable/a10dancetheme_activated_background_holo_light</item>
+
+        <item name="android:fastScrollThumbDrawable">@drawable/a10dancetheme_fastscroll_thumb_holo</item>
+
+        <item name="android:editTextStyle">@style/EditTextA10DanceTheme</item>
+
+        <item name="android:textColorHighlight">#99a32929</item>
+
+        <item name="android:checkboxStyle">@style/CheckBoxA10DanceTheme</item>
+
+        <item name="android:radioButtonStyle">@style/RadioButtonA10DanceTheme</item>
+
+        <item name="android:spinnerStyle">@style/SpinnerA10DanceTheme</item>
+
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemA10DanceTheme</item>
+
+        <item name="android:listViewStyle">@style/ListViewA10DanceTheme</item>
+
+        <item name="android:listViewWhiteStyle">@style/ListViewA10DanceTheme.White</item>
+
+        <item name="android:spinnerItemStyle">@style/SpinnerItemA10DanceTheme</item>
+
+
+        <item name="colorPrimary">@color/a10dancetheme_color</item>
+        <item name="colorPrimaryDark">@color/a10dancetheme_color</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
+    </style>
+
+</resources>

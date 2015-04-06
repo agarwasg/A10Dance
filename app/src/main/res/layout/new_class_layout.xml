@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:gravity="center_vertical|center_horizontal"
+    android:background="#ffffffff">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Class Name (Required)"
+        android:id="@+id/class_name_editText"
+        android:layout_margin="16dp"
+        android:inputType="textCapSentences"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Description (Optional) "
+        android:layout_margin="16dp"
+        android:id="@+id/class_description_editText"
+        android:inputType="textCapSentences"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
