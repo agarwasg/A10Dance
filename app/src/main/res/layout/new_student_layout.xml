@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="#ffffffff">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Student Name (Required)"
+            android:id="@+id/student_name_editText"
+            android:layout_margin="16dp"
+            android:inputType="textCapSentences"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Roll Number (Optional) "
+            android:layout_margin="16dp"
+            android:id="@+id/student_roll_number_editText"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number (Optional) "
+            android:layout_margin="16dp"
+            android:id="@+id/student_phone_editText"
+            android:inputType="phone"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email (Optional) "
+            android:layout_margin="16dp"
+            android:id="@+id/student_email_editText"
+            android:inputType="textEmailAddress"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>
