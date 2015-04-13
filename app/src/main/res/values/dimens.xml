@@ -7,4 +7,9 @@
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="tab_host_default_height">48dp</dimen>
+
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_content_padding">8dp</dimen>
+    <dimen name="card_title_text_size">20sp</dimen>
 </resources>

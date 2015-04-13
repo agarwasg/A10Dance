@@ -10,13 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/add_class"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:padding="16dp"
-        android:layout_margin="8dp"
-        android:textSize="20sp"
         android:id="@+id/create_class_button"
-        />
+        style="@style/a10dance_action_button" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
