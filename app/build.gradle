@@ -35,6 +35,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.getbase:floatingactionbutton:1.9.0'
     compile 'com.android.support:support-annotations:22.0.0'
+    compile 'com.google.android.gms:play-services-drive:7.0.0'
     //colored letter like gmail list
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
