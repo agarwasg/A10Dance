@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:foreground="?android:attr/selectableItemBackground"
             app:lcv_title="@string/attendance_history"
-            app:lcv_call_to_action="View Attendance History"
+            app:lcv_call_to_action="Take Attendance"
             android:layout_marginBottom="16dp"
             />
 
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foreground="?android:attr/selectableItemBackground"
-            app:lcv_title="@string/attendance_history"
+            app:lcv_title="Manage Student in class"
             app:lcv_call_to_action="View Attendance History" />
 
 

@@ -3,25 +3,30 @@
     package="com.pp.a10dance">
 
     <application
+        android:name="com.pp.a10dance.A10danceApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.pp.a10dance.A10danceApplication"
         android:theme="@style/A10DanceTheme">
         <activity
+            android:name=".activity.AttendanceActivity"
+            android:configChanges="screenSize|orientation|keyboard">
+        </activity>
+
+        <activity
+            android:name=".activity.StudentListActivity"
+            android:configChanges="screenSize|orientation|keyboard"></activity>
+
+        <activity
+            android:name=".activity.DriveStudentImportActivity"
+            android:configChanges="screenSize|orientation|keyboard"></activity>
+        <activity
             android:name=".activity.MainActivity"
-            android:configChanges="screenSize|orientation|keyboard"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activity.StudentListActivity"
-            android:configChanges="screenSize|orientation|keyboard">
-
         </activity>
     </application>
 

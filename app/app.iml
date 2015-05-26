@@ -86,20 +86,22 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="cardslib-cards-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="floatingactionbutton-1.9.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="stateless4j-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.1.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-asl-1.9.2" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="play-services-drive-7.0.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="couchbase-lite-android-1.0.4" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
+    <orderEntry type="library" exported="" name="cardslib-core-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="com.amulyakhare.textdrawable-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="couchbase-lite-java-core-1.0.4" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.1.0" level="project" />
     <orderEntry type="library" exported="" name="dbinspector-3.1.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-mapper-asl-1.9.2" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.1.0" level="project" />
   </component>
 </module>
