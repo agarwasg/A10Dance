@@ -25,7 +25,7 @@ import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.R;
 import com.pp.a10dance.adapter.DividerItemDecoration;
-import com.pp.a10dance.adapter.LiveQueryRecyclerAdapter;
+import com.pp.a10dance.adapter.ClassListRecyclerAdapter;
 import com.pp.a10dance.document.ProfClassRepository;
 
 /**
@@ -216,9 +216,9 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL_LIST));
         LiveQuery liveQuery = profClassRepository.getQuery().toLiveQuery();
-        RecyclerView.Adapter mAdapter = new LiveQueryRecyclerAdapter(
+        RecyclerView.Adapter mAdapter = new ClassListRecyclerAdapter(
                 getActivity(), liveQuery,
-                new LiveQueryRecyclerAdapter.OnItemClickListener() {
+                new ClassListRecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(String listId) {
                         selectItem(listId);

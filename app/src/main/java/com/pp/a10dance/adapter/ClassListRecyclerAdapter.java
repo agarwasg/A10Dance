@@ -16,8 +16,8 @@ import com.pp.a10dance.R;
 import com.pp.a10dance.document.ProfClassRepository;
 import com.pp.a10dance.model.ProfClass;
 
-public class LiveQueryRecyclerAdapter extends
-        RecyclerView.Adapter<LiveQueryRecyclerAdapter.ViewHolder> implements
+public class ClassListRecyclerAdapter extends
+        RecyclerView.Adapter<ClassListRecyclerAdapter.ViewHolder> implements
         View.OnClickListener {
 
     private Context context;
@@ -31,8 +31,8 @@ public class LiveQueryRecyclerAdapter extends
         public void onItemClick(String listId);
     }
 
-    public LiveQueryRecyclerAdapter(Context context, LiveQuery query,
-            OnItemClickListener listener) {
+    public ClassListRecyclerAdapter(Context context, LiveQuery query,
+                                    OnItemClickListener listener) {
         this.context = context;
         this.query = query;
         this.mListener = listener;
@@ -41,7 +41,7 @@ public class LiveQueryRecyclerAdapter extends
         query.addChangeListener(new LiveQuery.ChangeListener() {
             @Override
             public void changed(final LiveQuery.ChangeEvent event) {
-                ((ActionBarActivity) LiveQueryRecyclerAdapter.this.context)
+                ((ActionBarActivity) ClassListRecyclerAdapter.this.context)
                         .runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -59,7 +59,7 @@ public class LiveQueryRecyclerAdapter extends
     }
 
     @Override
-    public LiveQueryRecyclerAdapter.ViewHolder onCreateViewHolder(
+    public ClassListRecyclerAdapter.ViewHolder onCreateViewHolder(
             ViewGroup viewGroup, int i) {
         final View view = LayoutInflater.from(context).inflate(
                 R.layout.recycler_view_item_row, viewGroup, false);
@@ -70,7 +70,7 @@ public class LiveQueryRecyclerAdapter extends
 
     @Override
     public void onBindViewHolder(
-            LiveQueryRecyclerAdapter.ViewHolder viewHolder, int i) {
+            ClassListRecyclerAdapter.ViewHolder viewHolder, int i) {
         final Document task = (Document) getItem(i);
         ProfClass profClass = repository
                 .documentToObject(task, ProfClass.class);
