@@ -3,7 +3,6 @@ package com.pp.a10dance.document;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.couchbase.lite.CouchbaseLiteException;
@@ -12,41 +11,28 @@ import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
+import com.couchbase.lite.android.AndroidContext;
+import com.pp.a10dance.model.ProfClass;
 
-/**
- * Created by saketagarwal on 4/4/15.
- */
-public class ProfClass {
+public class ProfClassRepository extends BaseRepository {
     private static final String DOC_TYPE = "prof_class";
     private static final String VIEW_NAME = "prof_class";
-    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final String TYPE = "type";
-    private static final String TITLE = "title";
 
-    public static Document createNewProfClass(Database database, String title,
-            String description) throws CouchbaseLiteException {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
-        Calendar calendar = GregorianCalendar.getInstance();
-        String currentTimeString = dateFormatter.format(calendar.getTime());
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put(TYPE, DOC_TYPE);
-        properties.put(TITLE, title);
-        properties.put("description", description);
-        properties.put("created_at", currentTimeString);
-        Document document = database.createDocument();
-        document.putProperties(properties);
-        return document;
-
+    public ProfClassRepository(AndroidContext context) {
+        super(context);
     }
 
-    public static Query getQuery(Database database) {
+    public Query getQuery() {
         com.couchbase.lite.View view = database.getView(VIEW_NAME);
         if (view.getMap() == null) {
             Mapper mapper = new Mapper() {
                 public void map(Map<String, Object> document, Emitter emitter) {
                     String type = (String) document.get(TYPE);
+
                     if (DOC_TYPE.equals(type)) {
-                        emitter.emit(document.get(TITLE), document);
+                        ProfClass profClass = objectMapper.convertValue(
+                                document, ProfClass.class);
+                        emitter.emit(profClass.getName(), document);
                     }
                 }
             };
@@ -56,7 +42,7 @@ public class ProfClass {
         return query;
     }
 
-    public static boolean deleteProfClass(Database database, String classId)
+    public boolean deleteProfClass(Database database, String classId)
             throws CouchbaseLiteException {
         Document document = database.getDocument(classId);
         String type = (String) document.getProperty(TYPE);
@@ -64,6 +50,23 @@ public class ProfClass {
             return document.delete();
         }
         return false;
+    }
+
+    public ProfClass createNewProfClass(ProfClass profClass)
+            throws CouchbaseLiteException {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
+        Calendar calendar = GregorianCalendar.getInstance();
+        String currentTimeString = dateFormatter.format(calendar.getTime());
+        profClass.setCreatedAt(currentTimeString);
+        Map<String, Object> properties = objectMapper.convertValue(profClass,
+                Map.class);
+        properties.put(TYPE, DOC_TYPE);
+        Document document = database.createDocument();
+        document.putProperties(properties);
+        profClass.set_id(document.getId());
+        profClass.set_rev(document.getCurrentRevisionId());
+        return profClass;
+
     }
 
 }

@@ -21,14 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.couchbase.lite.Database;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.android.AndroidContext;
-import com.pp.a10dance.A10danceDB;
 import com.pp.a10dance.R;
 import com.pp.a10dance.adapter.DividerItemDecoration;
 import com.pp.a10dance.adapter.LiveQueryRecyclerAdapter;
-import com.pp.a10dance.document.ProfClass;
+import com.pp.a10dance.document.ProfClassRepository;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -68,79 +66,20 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private Button mCreateClassButton;
+    private ProfClassRepository profClassRepository;
+
+    /**
+     * Callbacks interface that all activities using this fragment must
+     * implement.
+     */
+    public static interface NavigationDrawerCallbacks {
+        /**
+         * Called when an item in the navigation drawer is selected.
+         */
+        void onNavigationDrawerItemSelected(String classId);
+    }
 
     public NavigationDrawerFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Read in the flag indicating whether or not the user has demonstrated
-        // awareness of the
-        // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-        mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
-
-        if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState
-                    .getString(STATE_SELECTED_POSITION);
-            mFromSavedInstanceState = true;
-        }
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of
-        // actions in the action bar.
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_navigation_drawer,
-                container, false);
-        mDrawerListView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mDrawerListView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(
-                getActivity());
-        mDrawerListView.setLayoutManager(layoutManager);
-        mDrawerListView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL_LIST));
-        LiveQuery liveQuery = ProfClass.getQuery(getDatabase()).toLiveQuery();
-        RecyclerView.Adapter mAdapter = new LiveQueryRecyclerAdapter(
-                getActivity(), liveQuery,
-                new LiveQueryRecyclerAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(String listId) {
-                        selectItem(listId);
-                        mDrawerLayout.closeDrawers();
-                    }
-                });
-        mDrawerListView.setAdapter(mAdapter);
-
-        // create class
-        mCreateClassButton = (Button) view
-                .findViewById(R.id.create_class_button);
-        mCreateClassButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewClass();
-            }
-        });
-
-        return view;
-    }
-
-    private void createNewClass() {
-        mDrawerLayout.closeDrawers();
-        NewClassDialogFragment newFragment = new NewClassDialogFragment();
-        newFragment.setDatabase(getDatabase());
-        newFragment.show(getActivity().getSupportFragmentManager(), "newClass");
     }
 
     public boolean isDrawerOpen() {
@@ -235,15 +174,70 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(String profClassId) {
-        mCurrentSelectedPosition = profClassId;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
+        // Read in the flag indicating whether or not the user has demonstrated
+        // awareness of the
+        // drawer. See PREF_USER_LEARNED_DRAWER for details.
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+
+        if (savedInstanceState != null) {
+            mCurrentSelectedPosition = savedInstanceState
+                    .getString(STATE_SELECTED_POSITION);
+            mFromSavedInstanceState = true;
         }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(profClassId);
-        }
+        profClassRepository = new ProfClassRepository(new AndroidContext(
+                getActivity()));
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Indicate that this fragment would like to influence the set of
+        // actions in the action bar.
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_navigation_drawer,
+                container, false);
+        mDrawerListView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mDrawerListView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                getActivity());
+        mDrawerListView.setLayoutManager(layoutManager);
+        mDrawerListView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        LiveQuery liveQuery = profClassRepository.getQuery().toLiveQuery();
+        RecyclerView.Adapter mAdapter = new LiveQueryRecyclerAdapter(
+                getActivity(), liveQuery,
+                new LiveQueryRecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(String listId) {
+                        selectItem(listId);
+                        mDrawerLayout.closeDrawers();
+                    }
+                });
+        mDrawerListView.setAdapter(mAdapter);
+
+        // create class
+        mCreateClassButton = (Button) view
+                .findViewById(R.id.create_class_button);
+        mCreateClassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewClass();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -304,6 +298,23 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void createNewClass() {
+        mDrawerLayout.closeDrawers();
+        NewClassDialogFragment newFragment = new NewClassDialogFragment();
+        newFragment.show(getActivity().getSupportFragmentManager(), "newClass");
+    }
+
+    private void selectItem(String profClassId) {
+        mCurrentSelectedPosition = profClassId;
+
+        if (mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(mFragmentContainerView);
+        }
+        if (mCallbacks != null) {
+            mCallbacks.onNavigationDrawerItemSelected(profClassId);
+        }
+    }
+
     /**
      * Per the navigation drawer design guidelines, updates the action bar to
      * show the global app 'context', rather than just what's in the current
@@ -318,22 +329,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
-    }
-
-    /**
-     * Callbacks interface that all activities using this fragment must
-     * implement.
-     */
-    public static interface NavigationDrawerCallbacks {
-        /**
-         * Called when an item in the navigation drawer is selected.
-         */
-        void onNavigationDrawerItemSelected(String classId);
-    }
-
-    private Database getDatabase() {
-        return A10danceDB.getInstance(new AndroidContext(getActivity()))
-                .getDatabase();
     }
 
 }

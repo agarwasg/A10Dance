@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.couchbase.lite.Database;
+import com.couchbase.lite.Document;
 import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.A10danceDB;
 
@@ -30,4 +31,9 @@ public abstract class BaseRepository {
         this.context = context;
         database = A10danceDB.getInstance(context).getDatabase();
     }
+
+    public <S> S documentToObject(Document document, Class<S> type) {
+        return objectMapper.convertValue(document.getProperties(), type);
+    }
+
 }

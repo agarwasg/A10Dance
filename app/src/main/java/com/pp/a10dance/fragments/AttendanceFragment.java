@@ -89,7 +89,6 @@ public class AttendanceFragment extends Fragment {
         if (mAttendanceAdapter != null) {
             int count = mAttendanceAdapter.getCount();
             Map<Student, Boolean> attendanceMap = mAttendanceAdapter.attendanceMap;
-            // TODO: figure out how we have put all the values for
 
         }
 

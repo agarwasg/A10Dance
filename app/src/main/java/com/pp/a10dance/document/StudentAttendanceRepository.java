@@ -36,7 +36,7 @@ public class StudentAttendanceRepository extends BaseRepository {
 
     public StudentAttendance save(StudentAttendance studentAttendance) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(
-                ProfClass.DATE_FORMAT);
+                ProfClassRepository.DATE_FORMAT);
         Calendar calendar = GregorianCalendar.getInstance();
         String currentTimeString = dateFormatter.format(calendar.getTime());
         studentAttendance.setCreatedAt(currentTimeString);

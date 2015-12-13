@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.R;
+import com.pp.a10dance.document.ProfClassRepository;
+import com.pp.a10dance.model.ProfClass;
 
 public class LiveQueryRecyclerAdapter extends
         RecyclerView.Adapter<LiveQueryRecyclerAdapter.ViewHolder> implements
@@ -20,14 +23,20 @@ public class LiveQueryRecyclerAdapter extends
     private Context context;
     private LiveQuery query;
     private QueryEnumerator enumerator;
+    private ProfClassRepository repository;
 
     private OnItemClickListener mListener;
+
+    public static interface OnItemClickListener {
+        public void onItemClick(String listId);
+    }
 
     public LiveQueryRecyclerAdapter(Context context, LiveQuery query,
             OnItemClickListener listener) {
         this.context = context;
         this.query = query;
         this.mListener = listener;
+        repository = new ProfClassRepository(new AndroidContext(context));
 
         query.addChangeListener(new LiveQuery.ChangeListener() {
             @Override
@@ -45,6 +54,10 @@ public class LiveQueryRecyclerAdapter extends
         query.start();
     }
 
+    public Object getItem(int i) {
+        return enumerator != null ? enumerator.getRow(i).getDocument() : null;
+    }
+
     @Override
     public LiveQueryRecyclerAdapter.ViewHolder onCreateViewHolder(
             ViewGroup viewGroup, int i) {
@@ -59,17 +72,15 @@ public class LiveQueryRecyclerAdapter extends
     public void onBindViewHolder(
             LiveQueryRecyclerAdapter.ViewHolder viewHolder, int i) {
         final Document task = (Document) getItem(i);
-        viewHolder.textView.setText((String) task.getProperty("title"));
+        ProfClass profClass = repository
+                .documentToObject(task, ProfClass.class);
+        viewHolder.textView.setText(profClass.getName());
         viewHolder.textView.setTag(viewHolder);
     }
 
     @Override
     public int getItemCount() {
         return enumerator != null ? enumerator.getCount() : 0;
-    }
-
-    public Object getItem(int i) {
-        return enumerator != null ? enumerator.getRow(i).getDocument() : null;
     }
 
     @Override
@@ -80,10 +91,6 @@ public class LiveQueryRecyclerAdapter extends
             Document document = (Document) getItem(holder.getPosition());
             mListener.onItemClick((String) document.getProperty("_id"));
         }
-    }
-
-    public static interface OnItemClickListener {
-        public void onItemClick(String listId);
     }
 
     // Creating a ViewHolder class which extends the RecyclerView.ViewHolder

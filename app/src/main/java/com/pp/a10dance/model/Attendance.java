@@ -9,6 +9,8 @@ public class Attendance {
     private String dateTime;
     private String _id;
     private String _rev;
+    private String studentId;
+    private boolean isPresent;
 
     public Attendance() {
     }
@@ -47,6 +49,22 @@ public class Attendance {
 
     public void set_rev(String _rev) {
         this._rev = _rev;
+    }
+
+    public boolean isPresent() {
+        return isPresent;
+    }
+
+    public void setIsPresent(boolean isPresent) {
+        this.isPresent = isPresent;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     @Override
