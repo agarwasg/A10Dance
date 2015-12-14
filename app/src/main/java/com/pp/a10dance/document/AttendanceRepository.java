@@ -12,9 +12,6 @@ import com.couchbase.lite.util.Log;
 import com.pp.a10dance.helper.LogUtils;
 import com.pp.a10dance.model.Attendance;
 
-/**
- * Created by saketagarwal on 5/23/15.
- */
 public class AttendanceRepository extends BaseRepository {
 
     private static final String DOC_TYPE = "attendance";
@@ -76,6 +73,5 @@ public class AttendanceRepository extends BaseRepository {
             return false;
         }
     }
-
 
 }

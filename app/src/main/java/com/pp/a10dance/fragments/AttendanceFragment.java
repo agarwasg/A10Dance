@@ -1,10 +1,14 @@
 package com.pp.a10dance.fragments;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,20 +18,22 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.LiveQuery;
+import com.couchbase.lite.QueryEnumerator;
+import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.R;
 import com.pp.a10dance.activity.AttendanceActivity;
 import com.pp.a10dance.adapter.AttendanceAdapter;
 import com.pp.a10dance.document.AttendanceRepository;
+import com.pp.a10dance.document.StudentAttendanceRepository;
 import com.pp.a10dance.document.StudentRepository;
 import com.pp.a10dance.helper.Utils;
 import com.pp.a10dance.model.Attendance;
 import com.pp.a10dance.model.Student;
+import com.pp.a10dance.model.StudentAttendance;
 
-/**
- * Created by saketagarwal on 4/22/15.
- */
 public class AttendanceFragment extends Fragment {
 
     private String mClassId;
@@ -35,6 +41,7 @@ public class AttendanceFragment extends Fragment {
     private Activity mContext;
     private AttendanceAdapter mAttendanceAdapter;
     private AttendanceRepository mAttendanceRepository;
+    private StudentAttendanceRepository mStudentAttendanceRepository;
     private StudentRepository mStudentRepository;
 
     @Override
@@ -46,6 +53,8 @@ public class AttendanceFragment extends Fragment {
                 AttendanceActivity.ATTENDANCE_ID_ARGS);
         mAttendanceRepository = new AttendanceRepository(new AndroidContext(
                 getActivity()));
+        mStudentAttendanceRepository = new StudentAttendanceRepository(
+                new AndroidContext(getActivity()));
         mStudentRepository = new StudentRepository(new AndroidContext(
                 getActivity()));
         setHasOptionsMenu(true);
@@ -91,9 +100,11 @@ public class AttendanceFragment extends Fragment {
     private boolean saveAttendance() {
 
         Attendance attendance;
+        boolean isNewAttendance = false;
         // create new attendance if we are not editing
         if (Utils.StringUtils.isBlank(mAttendanceId)) {
             attendance = mAttendanceRepository.save(new Attendance(mClassId));
+            isNewAttendance = true;
         } else {
             attendance = mAttendanceRepository.get(mAttendanceId);
         }
@@ -102,13 +113,61 @@ public class AttendanceFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
             return true;
         }
+
         if (mAttendanceAdapter != null) {
-            int count = mAttendanceAdapter.getCount();
-            Map<Student, Boolean> attendanceMap = mAttendanceAdapter.attendanceMap;
+            Map<String, Boolean> attendanceMap = new HashMap<>();
+            // get all students for the class
+            try {
+                QueryEnumerator result = mStudentRepository.getQuery(mClassId)
+                        .run();
+                Student student;
+                QueryRow row;
+                StudentAttendance studentAttendance;
+                boolean isPresent = true;
+                for (Iterator<QueryRow> it = result; it.hasNext();) {
+                    row = it.next();
+                    student = mStudentRepository.documentToObject(
+                            row.getDocument(), Student.class);
+                    // if new attendance mark everyone as present
+                    if (!isNewAttendance) {
+                        isPresent = mStudentAttendanceRepository
+                                .getCurrentAttendanceState(student.get_id(),
+                                        mAttendanceId);
+                    }
+                    attendanceMap.put(student.get_id(), isPresent);
+                }
+                // super impose by latest update from user
+                attendanceMap.putAll(mAttendanceAdapter.getAttendanceMap());
+                countFinalValues(attendanceMap);
+                // TODO: to show conformation dialog
+                for (Map.Entry<String, Boolean> entry : attendanceMap
+                        .entrySet()) {
+                    // TODO: Handle scenariooes where it is in update for
+                    // studentattendance
+                    mStudentAttendanceRepository.save(new StudentAttendance(
+                            attendance.get_id(), entry.getKey(), mClassId,
+                            entry.getValue()));
+                    getActivity().finish();
+                }
 
+            } catch (CouchbaseLiteException e) {
+                Log.e("AttendanceFragment", e.getMessage(), e);
+                return false;
+            }
         }
-
         return true;
     }
 
+    private void countFinalValues(Map<String, Boolean> valueMap) {
+        Map<Boolean, Integer> result = new TreeMap<Boolean, Integer>();
+        for (Map.Entry<String, Boolean> entry : valueMap.entrySet()) {
+            boolean value = entry.getValue();
+            Integer count = result.get(value);
+            if (count == null)
+                result.put(value, new Integer(1));
+            else
+                result.put(value, new Integer(count + 1));
+        }
+        Log.d("A10dance", "values changed " + result);
+    }
 }

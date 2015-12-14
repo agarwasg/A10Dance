@@ -4,34 +4,27 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryEnumerator;
-import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.R;
-import com.pp.a10dance.document.StudentAttendance;
-import com.pp.a10dance.document.StudentAttendanceRepository;
-import com.pp.a10dance.document.StudentRepository;
 import com.pp.a10dance.helper.LogUtils;
-import com.pp.a10dance.helper.Utils;
 import com.pp.a10dance.model.Student;
 
-/**
- * Created by saketagarwal on 4/26/15.
- */
 public class AttendanceCard extends CardView {
     public static final String TAG = LogUtils.getTag(AttendanceCard.class);
     private final Context mContext;
     private final ImageView mStudentImage;
     private final TextView studentName;
     private final Button attenDanceButton;
-    private final StudentRepository studentRepository;
+    private boolean mIsPresent;
+
+    public interface OnAttendanceClickListener {
+
+        void onAttendanceClick(String studentId, boolean isPresent);
+    }
 
     public AttendanceCard(Context context) {
         this(context, null);
@@ -52,14 +45,11 @@ public class AttendanceCard extends CardView {
         studentName = (TextView) baseView
                 .findViewById(R.id.student_name_textView);
         attenDanceButton = (Button) baseView.findViewById(R.id.absent_button);
-        studentRepository = new StudentRepository(new AndroidContext(mContext));
-
     }
 
-    public void setDetails(final Student student, String attendanceId,
+    public void setDetails(final Student student, boolean isPresent,
             final OnAttendanceClickListener onAttendanceClickListener) {
-        final boolean isPresent = getCurrentAttendanceState(student.get_id(),
-                attendanceId);
+        this.mIsPresent = isPresent;
         ImageViewBorder studentNameDrawable = ImageViewBorder.builder()
                 .beginConfig().withBorder(8).bold().endConfig()
                 .buildRound(student.getStudentFirstLetter(), Color.GREEN); // radius
@@ -70,43 +60,14 @@ public class AttendanceCard extends CardView {
         attenDanceButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                attenDanceButton.setBackgroundColor(getResources().getColor(
+                        R.color.grey_text_color));
                 if (onAttendanceClickListener != null) {
-                    onAttendanceClickListener.onAttendanceClick(student,
-                            isPresent);
+                    mIsPresent = !mIsPresent;
+                    onAttendanceClickListener.onAttendanceClick(
+                            student.get_id(), mIsPresent);
                 }
             }
         });
-    }
-
-    private boolean getCurrentAttendanceState(String studentId,
-            String attendanceId) {
-        if (Utils.StringUtils.isBlank(attendanceId)) {
-            return true;
-        }
-
-        StudentAttendanceRepository studentAttendanceRepository = new StudentAttendanceRepository(
-                new AndroidContext(mContext));
-        Query query = studentAttendanceRepository.getQuery(attendanceId,
-                studentId);
-        query.setLimit(1);
-        try {
-            QueryEnumerator result = query.run();
-            StudentAttendance studentAttendance = studentAttendanceRepository
-                    .get(result.getRow(0).getDocumentId());
-            Log.d(TAG, "Student Fragment is " + studentAttendance.toString());
-            if (studentAttendance == null) {
-                return true;
-            }
-            return studentAttendance.isPresent();
-        } catch (CouchbaseLiteException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return true;
-
-    }
-
-    public interface OnAttendanceClickListener {
-
-        void onAttendanceClick(Student student, boolean isPresent);
     }
 }

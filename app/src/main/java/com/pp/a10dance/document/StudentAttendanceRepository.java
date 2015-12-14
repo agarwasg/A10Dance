@@ -13,14 +13,14 @@ import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Query;
+import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.View;
 import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.util.Log;
 import com.pp.a10dance.helper.LogUtils;
+import com.pp.a10dance.helper.Utils;
+import com.pp.a10dance.model.StudentAttendance;
 
-/**
- * Created by saketagarwal on 5/24/15.
- */
 public class StudentAttendanceRepository extends BaseRepository {
 
     public static final String DOC_TYPE = "studentAttendance";
@@ -35,8 +35,7 @@ public class StudentAttendanceRepository extends BaseRepository {
     }
 
     public StudentAttendance save(StudentAttendance studentAttendance) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(
-                ProfClassRepository.DATE_FORMAT);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
         Calendar calendar = GregorianCalendar.getInstance();
         String currentTimeString = dateFormatter.format(calendar.getTime());
         studentAttendance.setCreatedAt(currentTimeString);
@@ -144,6 +143,31 @@ public class StudentAttendanceRepository extends BaseRepository {
         query.setStartKey(startKeys);
         query.setEndKey(endKeys);
         return query;
+
+    }
+
+    public boolean getCurrentAttendanceState(String studentId,
+            String attendanceId) {
+        if (Utils.StringUtils.isBlank(attendanceId)) {
+            return true;
+        }
+
+        Query query = getQuery(attendanceId, studentId);
+        query.setLimit(1);
+        try {
+            QueryEnumerator result = query.run();
+            StudentAttendance studentAttendance = get(result.getRow(0)
+                    .getDocumentId());
+            android.util.Log.d(TAG,
+                    "Student Fragment is " + studentAttendance.toString());
+            if (studentAttendance == null) {
+                return true;
+            }
+            return studentAttendance.isPresent();
+        } catch (CouchbaseLiteException e) {
+            android.util.Log.e(TAG, e.getMessage(), e);
+        }
+        return true;
 
     }
 

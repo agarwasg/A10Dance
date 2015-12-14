@@ -36,4 +36,9 @@ public abstract class BaseRepository {
         return objectMapper.convertValue(document.getProperties(), type);
     }
 
+    public <S> S documentById(String id, Class<S> type) {
+        return objectMapper.convertValue(database.getDocument(id)
+                .getProperties(), type);
+    }
+
 }

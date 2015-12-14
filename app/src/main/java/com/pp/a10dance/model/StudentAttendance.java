@@ -1,8 +1,9 @@
-package com.pp.a10dance.document;
+package com.pp.a10dance.model;
 
 public class StudentAttendance {
     private String attendanceId;
     private String studentId;
+    private String classId;
     private String _id;
     private String _rev;
     private String createdAt;
@@ -13,9 +14,10 @@ public class StudentAttendance {
     }
 
     public StudentAttendance(String attendanceId, String studentId,
-            boolean isPresent) {
+            String classId, boolean isPresent) {
         this.attendanceId = attendanceId;
         this.studentId = studentId;
+        this.classId = classId;
         this.isPresent = isPresent;
     }
 
@@ -67,11 +69,20 @@ public class StudentAttendance {
         this.isPresent = isPresent;
     }
 
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
     @Override
     public String toString() {
         return "StudentAttendance{" + "attendanceId='" + attendanceId + '\''
-                + ", studentId='" + studentId + '\'' + ", _id='" + _id + '\''
-                + ", _rev='" + _rev + '\'' + ", createdAt='" + createdAt + '\''
-                + ", isPresent=" + isPresent + '}';
+                + ", studentId='" + studentId + '\'' + ", classId='" + classId
+                + '\'' + ", _id='" + _id + '\'' + ", _rev='" + _rev + '\''
+                + ", createdAt='" + createdAt + '\'' + ", isPresent="
+                + isPresent + '}';
     }
 }
