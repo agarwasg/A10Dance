@@ -14,7 +14,6 @@ import com.couchbase.lite.Database;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.android.AndroidContext;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.pp.a10dance.A10danceDB;
 import com.pp.a10dance.R;
 import com.pp.a10dance.activity.DriveStudentImportActivity;
 import com.pp.a10dance.activity.StudentListActivity;
@@ -25,6 +24,7 @@ public class StudentListFragment extends Fragment {
 
     private Context context;
     private StudentAdapter mStudentAdapter;
+    private StudentRepository mStudentRepository;
     private String mClassId;
     private Database mDatabase;
 
@@ -33,8 +33,8 @@ public class StudentListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mClassId = getActivity().getIntent().getStringExtra(
                 StudentListActivity.CLASS_ID_ARGS);
-        mDatabase = A10danceDB.getInstance(new AndroidContext(getActivity()))
-                .getDatabase();
+        mStudentRepository = new StudentRepository(new AndroidContext(
+                getActivity()));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class StudentListFragment extends Fragment {
         View view = inflater.inflate(R.layout.student_list, container, false);
         ListView studentListView = (ListView) view
                 .findViewById(R.id.student_listView);
-        LiveQuery liveQuery = StudentRepository.getQuery(mDatabase, mClassId)
+        LiveQuery liveQuery = mStudentRepository.getQuery(mClassId)
                 .toLiveQuery();
         mStudentAdapter = new StudentAdapter(context, liveQuery);
         studentListView.setAdapter(mStudentAdapter);

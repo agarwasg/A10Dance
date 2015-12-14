@@ -14,10 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.couchbase.lite.Database;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.android.AndroidContext;
-import com.pp.a10dance.A10danceDB;
 import com.pp.a10dance.R;
 import com.pp.a10dance.activity.AttendanceActivity;
 import com.pp.a10dance.adapter.AttendanceAdapter;
@@ -37,6 +35,7 @@ public class AttendanceFragment extends Fragment {
     private Activity mContext;
     private AttendanceAdapter mAttendanceAdapter;
     private AttendanceRepository mAttendanceRepository;
+    private StudentRepository mStudentRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,8 @@ public class AttendanceFragment extends Fragment {
         mAttendanceId = getActivity().getIntent().getStringExtra(
                 AttendanceActivity.ATTENDANCE_ID_ARGS);
         mAttendanceRepository = new AttendanceRepository(new AndroidContext(
+                getActivity()));
+        mStudentRepository = new StudentRepository(new AndroidContext(
                 getActivity()));
         setHasOptionsMenu(true);
 
@@ -72,9 +73,24 @@ public class AttendanceFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean saveAttendance() {
-        Attendance attendance;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater
+                .inflate(R.layout.attendance_list, container, false);
+        ListView listView = (ListView) view.findViewById(R.id.attendance_list);
+        LiveQuery liveQuery = mStudentRepository.getQuery(mClassId)
+                .toLiveQuery();
+        mAttendanceAdapter = new AttendanceAdapter(mContext, liveQuery,
+                mAttendanceId);
+        listView.setAdapter(mAttendanceAdapter);
+        return view;
 
+    }
+
+    private boolean saveAttendance() {
+
+        Attendance attendance;
         // create new attendance if we are not editing
         if (Utils.StringUtils.isBlank(mAttendanceId)) {
             attendance = mAttendanceRepository.save(new Attendance(mClassId));
@@ -93,26 +109,6 @@ public class AttendanceFragment extends Fragment {
         }
 
         return true;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater
-                .inflate(R.layout.attendance_list, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.attendance_list);
-        LiveQuery liveQuery = StudentRepository.getQuery(getDatabase(),
-                mClassId).toLiveQuery();
-        mAttendanceAdapter = new AttendanceAdapter(mContext, liveQuery,
-                mAttendanceId);
-        listView.setAdapter(mAttendanceAdapter);
-        return view;
-
-    }
-
-    private Database getDatabase() {
-        return A10danceDB.getInstance(new AndroidContext(getActivity()))
-                .getDatabase();
     }
 
 }

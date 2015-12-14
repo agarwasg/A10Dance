@@ -22,11 +22,11 @@ import com.pp.a10dance.view.AttendanceCard;
 public class AttendanceAdapter extends LiveQueryBaseAdapter implements
         AttendanceCard.OnAttendanceClickListener {
 
+    public final Map<Student, Boolean> attendanceMap;
     private final Context mContext;
     private final LiveQuery mLiveQuery;
-    private String attendanceId;
     private final StudentRepository studentRepository;
-    public final Map<Student, Boolean> attendanceMap;
+    private String attendanceId;
 
     public AttendanceAdapter(Context context, LiveQuery liveQuery,
             String attendanceId) {

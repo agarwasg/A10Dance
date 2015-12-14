@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;
 import com.couchbase.lite.Emitter;
 import com.couchbase.lite.Mapper;
@@ -25,15 +24,14 @@ import com.pp.a10dance.model.Student;
  */
 public class StudentRepository extends BaseRepository {
 
-    private static final String VIEW_NAME = "student";
-    private static final String DOC_TYPE = "student";
-    private static final String TAG = LogUtils.getTag(StudentRepository.class);
     public static final String NAME = "name";
     public static final String PROF_CLASS_ID = "profClassId";
-
     public static final String PHONE = "studentPhone";
     public static final String EMAIL = "studentEmail";
     public static final String ROLL = "student_roll_number";
+    private static final String VIEW_NAME = "student";
+    private static final String DOC_TYPE = "student";
+    private static final String TAG = LogUtils.getTag(StudentRepository.class);
     private AndroidContext context;
 
     public StudentRepository(AndroidContext context) {
@@ -148,7 +146,7 @@ public class StudentRepository extends BaseRepository {
         }
     }
 
-    public static Query getQuery(Database database, String profClassId) {
+    public Query getQuery(String profClassId) {
         View view = database.getView(VIEW_NAME);
         if (view.getMap() == null) {
             Mapper map = new Mapper() {
