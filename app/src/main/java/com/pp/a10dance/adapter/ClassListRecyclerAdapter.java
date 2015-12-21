@@ -1,7 +1,7 @@
 package com.pp.a10dance.adapter;
 
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +32,7 @@ public class ClassListRecyclerAdapter extends
     }
 
     public ClassListRecyclerAdapter(Context context, LiveQuery query,
-                                    OnItemClickListener listener) {
+            OnItemClickListener listener) {
         this.context = context;
         this.query = query;
         this.mListener = listener;
@@ -41,7 +41,7 @@ public class ClassListRecyclerAdapter extends
         query.addChangeListener(new LiveQuery.ChangeListener() {
             @Override
             public void changed(final LiveQuery.ChangeEvent event) {
-                ((ActionBarActivity) ClassListRecyclerAdapter.this.context)
+                ((AppCompatActivity) ClassListRecyclerAdapter.this.context)
                         .runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

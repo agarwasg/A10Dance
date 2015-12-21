@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/list_card_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
         android:padding="16dp"
         android:text="@string/attendance_history"
+        android:textColor="@color/primary_text"
         android:textSize="@dimen/card_title_text_size"
-        android:textColor="@color/grey_text_color"
-        android:fontFamily="sans-serif"
         tools:text="Attendance History" />
 
     <View
@@ -22,18 +22,18 @@
         android:background="@android:color/darker_gray" />
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/container"
         android:orientation="vertical"></LinearLayout>
 
 
     <Button
         android:id="@+id/call_to_action_button"
+        style="@style/a10dance_action_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="See Attendance History"
-        style="@style/a10dance_action_button"
-        android:layout_margin="0dp" />
+        android:layout_margin="0dp"
+        android:text="See Attendance History" />
 
 </LinearLayout>

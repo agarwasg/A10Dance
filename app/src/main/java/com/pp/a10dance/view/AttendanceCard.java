@@ -61,7 +61,7 @@ public class AttendanceCard extends CardView {
             @Override
             public void onClick(View view) {
                 attenDanceButton.setBackgroundColor(getResources().getColor(
-                        R.color.grey_text_color));
+                        R.color.accent));
                 if (onAttendanceClickListener != null) {
                     mIsPresent = !mIsPresent;
                     onAttendanceClickListener.onAttendanceClick(

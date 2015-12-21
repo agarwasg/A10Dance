@@ -6,8 +6,9 @@
     <style name="A10DanceTheme" parent="@style/_A10DanceTheme" />
 
     <style name="_A10DanceTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/a10dancetheme_color_primary</item>
-        <item name="colorPrimaryDark">@color/a10dancetheme_color_primary</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
