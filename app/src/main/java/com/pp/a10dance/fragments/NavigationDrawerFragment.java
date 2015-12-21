@@ -8,8 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +24,8 @@ import android.widget.Toast;
 import com.couchbase.lite.LiveQuery;
 import com.couchbase.lite.android.AndroidContext;
 import com.pp.a10dance.R;
-import com.pp.a10dance.adapter.DividerItemDecoration;
 import com.pp.a10dance.adapter.ClassListRecyclerAdapter;
+import com.pp.a10dance.adapter.DividerItemDecoration;
 import com.pp.a10dance.document.ProfClassRepository;
 
 /**
@@ -328,7 +328,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private ActionBar getActionBar() {
-        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+        return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
 
 }

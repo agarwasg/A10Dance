@@ -2,7 +2,7 @@ package com.pp.a10dance.activity;
 
 import android.content.IntentSender;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -15,16 +15,23 @@ import com.pp.a10dance.helper.LogUtils;
  * Created by saketagarwal on 4/19/15.
  */
 public abstract class BaseGoogleDriveIntegrationActivity extends
-        ActionBarActivity implements GoogleApiClient.ConnectionCallbacks,
+        AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private GoogleApiClient mGoogleApiClient;
-    private static final String TAG = LogUtils
-            .getTag(BaseGoogleDriveIntegrationActivity.class);
     /**
      * Request code for auto Google Play Services error resolution.
      */
     protected static final int REQUEST_CODE_RESOLUTION = 1;
+    private static final String TAG = LogUtils
+            .getTag(BaseGoogleDriveIntegrationActivity.class);
+    private GoogleApiClient mGoogleApiClient;
+
+    /**
+     * Getter for the {@code GoogleApiClient}.
+     */
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
 
     @Override
     protected void onResume() {
@@ -85,12 +92,5 @@ public abstract class BaseGoogleDriveIntegrationActivity extends
         } catch (IntentSender.SendIntentException e) {
             Log.e(TAG, "Exception while starting resolution activity", e);
         }
-    }
-
-    /**
-     * Getter for the {@code GoogleApiClient}.
-     */
-    public GoogleApiClient getGoogleApiClient() {
-        return mGoogleApiClient;
     }
 }

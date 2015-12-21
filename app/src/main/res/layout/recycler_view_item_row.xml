@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    >
+    android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/listRowText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:paddingTop="16dp"
+        android:layout_gravity="center_vertical"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
-        android:textSize="18sp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/a10dancetheme_list_selector_holo_light"
+        android:paddingTop="16dp"
+        android:text="Medium Text"
         android:textColor="@color/grey_text_color"
-        android:id="@+id/listRowText"/>
+        android:textSize="18sp" />
 
 </LinearLayout>

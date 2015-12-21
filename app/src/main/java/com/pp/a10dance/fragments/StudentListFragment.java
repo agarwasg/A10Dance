@@ -49,7 +49,7 @@ public class StudentListFragment extends Fragment {
         View view = inflater.inflate(R.layout.student_list, container, false);
         ListView studentListView = (ListView) view
                 .findViewById(R.id.student_listView);
-        LiveQuery liveQuery = mStudentRepository.getQuery(mClassId)
+        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(mClassId)
                 .toLiveQuery();
         mStudentAdapter = new StudentAdapter(context, liveQuery);
         studentListView.setAdapter(mStudentAdapter);

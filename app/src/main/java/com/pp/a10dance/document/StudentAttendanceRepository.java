@@ -110,7 +110,8 @@ public class StudentAttendanceRepository extends BaseRepository {
         return studentAttendance;
     }
 
-    public Query getQuery(String attendanceId, String studentId) {
+    public Query getByAttendanceIdStudentIdQuery(String attendanceId,
+            String studentId) {
         View view = database.getView(VIEW_NAME);
         if (view.getMap() == null) {
             Mapper map = new Mapper() {
@@ -146,13 +147,51 @@ public class StudentAttendanceRepository extends BaseRepository {
 
     }
 
+    public Query getByClassIdStudentIdQuery(String classId, String studentId) {
+        View view = database.getView(VIEW_NAME);
+        if (view.getMap() == null) {
+            Mapper map = new Mapper() {
+
+                @Override
+                public void map(Map<String, Object> document, Emitter emitter) {
+                    if (DOC_TYPE.equals(document.get(TYPE))) {
+                        StudentAttendance studentAttendance = objectMapper
+                                .convertValue(document, StudentAttendance.class);
+                        List<Object> keys = new ArrayList<>();
+                        keys.add(studentAttendance.getStudentId());
+                        keys.add(studentAttendance.getClassId());
+                        keys.add(studentAttendance.getCreatedAt());
+                        emitter.emit(keys, document);
+                    }
+                }
+            };
+            view.setMap(map, "1");
+        }
+        // only return student for current class
+        com.couchbase.lite.Query query = view.createQuery();
+        query.setDescending(true);
+        java.util.List<Object> startKeys = new ArrayList<Object>();
+        startKeys.add(classId);
+        startKeys.add(studentId);
+        startKeys.add(new HashMap<String, Object>());
+
+        java.util.List<Object> endKeys = new ArrayList<Object>();
+        endKeys.add(classId);
+        endKeys.add(studentId);
+
+        query.setStartKey(startKeys);
+        query.setEndKey(endKeys);
+        return query;
+
+    }
+
     public boolean getCurrentAttendanceState(String studentId,
             String attendanceId) {
         if (Utils.StringUtils.isBlank(attendanceId)) {
             return true;
         }
 
-        Query query = getQuery(attendanceId, studentId);
+        Query query = getByAttendanceIdStudentIdQuery(attendanceId, studentId);
         query.setLimit(1);
         try {
             QueryEnumerator result = query.run();

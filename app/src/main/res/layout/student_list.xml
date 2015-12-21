@@ -24,7 +24,7 @@
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_addButtonColorNormal="@color/white"
         fab:fab_addButtonColorPressed="@color/white_pressed"
-        fab:fab_addButtonPlusIconColor="@color/a10dancetheme_color"
+        fab:fab_addButtonPlusIconColor="@color/a10dancetheme_color_primary"
         fab:fab_labelsPosition="left">
 
         <com.getbase.floatingactionbutton.AddFloatingActionButton
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_title="Import Students"
-            fab:fab_colorNormal="@color/a10dancetheme_color"
+            fab:fab_colorNormal="@color/a10dancetheme_color_primary"
             fab:fab_colorPressed="@color/a10dancetheme_color_semitransparent" />
 
         <com.getbase.floatingactionbutton.AddFloatingActionButton
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             fab:fab_size="mini"
             fab:fab_title="Add Single Student"
-            fab:fab_colorNormal="@color/a10dancetheme_color"
+            fab:fab_colorNormal="@color/a10dancetheme_color_primary"
             fab:fab_colorPressed="@color/a10dancetheme_color_semitransparent" />
 
 

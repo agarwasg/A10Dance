@@ -1,18 +1,17 @@
 package com.pp.a10dance.fragments.stat;
 
-import com.pp.a10dance.model.StudentAttendance;
-
 import java.util.List;
+
+import com.pp.a10dance.model.StudentAttendance;
 
 public class StudentAttendanceStatViewModel {
 
     String name;
+    String phone;
+    String email;
+    String roll;
     String studentId;
-    int attended;
-    int missed;
+    String createdAt;
     List<StudentAttendance> attendanceRecord;
-
-
-
 
 }

@@ -146,7 +146,7 @@ public class StudentRepository extends BaseRepository {
         }
     }
 
-    public Query getQuery(String profClassId) {
+    public Query getStudentInClassQuery(String profClassId) {
         View view = database.getView(VIEW_NAME);
         if (view.getMap() == null) {
             Mapper map = new Mapper() {

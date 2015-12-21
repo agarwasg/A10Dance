@@ -88,7 +88,7 @@ public class AttendanceFragment extends Fragment {
         View view = inflater
                 .inflate(R.layout.attendance_list, container, false);
         ListView listView = (ListView) view.findViewById(R.id.attendance_list);
-        LiveQuery liveQuery = mStudentRepository.getQuery(mClassId)
+        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(mClassId)
                 .toLiveQuery();
         mAttendanceAdapter = new AttendanceAdapter(mContext, liveQuery,
                 mAttendanceId);
@@ -118,7 +118,7 @@ public class AttendanceFragment extends Fragment {
             Map<String, Boolean> attendanceMap = new HashMap<>();
             // get all students for the class
             try {
-                QueryEnumerator result = mStudentRepository.getQuery(mClassId)
+                QueryEnumerator result = mStudentRepository.getStudentInClassQuery(mClassId)
                         .run();
                 Student student;
                 QueryRow row;
