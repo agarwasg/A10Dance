@@ -1,8 +1,11 @@
 package com.pp.a10dance.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +15,7 @@ import android.view.MenuItem;
 import com.pp.a10dance.R;
 import com.pp.a10dance.fragments.ClassDetailsFragment;
 import com.pp.a10dance.fragments.NavigationDrawerFragment;
+import com.pp.a10dance.fragments.StudentListFragment;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -42,13 +46,18 @@ public class MainActivity extends AppCompatActivity implements
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        if (viewPager != null) {
+            setupViewPager(viewPager);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+
     }
 
     @Override
@@ -64,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
+        // if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        // // Only show items in the action bar relevant to this screen
+        // // if the drawer is not showing. Otherwise, let the drawer
+        // // decide what to show in the action bar.
+        // // getMenuInflater().inflate(R.menu.main, menu);
+        // restoreActionBar();
+        // return true;
+        // }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -90,4 +99,45 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        ClassDetailsViewPagerFragmentAdapter adapter = new ClassDetailsViewPagerFragmentAdapter(
+                getSupportFragmentManager(),
+                "64b02538-23d4-4b6a-bd4b-1994cd3fb0f3");
+        viewPager.setAdapter(adapter);
+
+    }
+
+    private static class ClassDetailsViewPagerFragmentAdapter extends
+            FragmentPagerAdapter {
+
+        private String classId;
+
+        public ClassDetailsViewPagerFragmentAdapter(FragmentManager fm,
+                String classId) {
+            super(fm);
+            this.classId = classId;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return StudentListFragment.createInstance(classId);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Student";
+                case 1:
+                    return "Lecture";
+                default:
+                    return "";
+            }
+        }
+    }
 }

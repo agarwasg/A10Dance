@@ -28,11 +28,18 @@ public class StudentListFragment extends Fragment {
     private String mClassId;
     private Database mDatabase;
 
+    public static Fragment createInstance(String classId) {
+        StudentListFragment studentListFragment = new StudentListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(StudentListActivity.CLASS_ID_ARGS, classId);
+        studentListFragment.setArguments(bundle);
+        return studentListFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mClassId = getActivity().getIntent().getStringExtra(
-                StudentListActivity.CLASS_ID_ARGS);
+        mClassId = getArguments().getString(StudentListActivity.CLASS_ID_ARGS);
         mStudentRepository = new StudentRepository(new AndroidContext(
                 getActivity()));
     }
@@ -49,8 +56,8 @@ public class StudentListFragment extends Fragment {
         View view = inflater.inflate(R.layout.student_list, container, false);
         ListView studentListView = (ListView) view
                 .findViewById(R.id.student_listView);
-        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(mClassId)
-                .toLiveQuery();
+        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(
+                mClassId).toLiveQuery();
         mStudentAdapter = new StudentAdapter(context, liveQuery);
         studentListView.setAdapter(mStudentAdapter);
         FloatingActionButton floatingActionButton = (FloatingActionButton) view

@@ -3,6 +3,7 @@ package com.pp.a10dance.adapter;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class ClassListRecyclerAdapter extends
     public void onBindViewHolder(
             ClassListRecyclerAdapter.ViewHolder viewHolder, int i) {
         final Document task = (Document) getItem(i);
+        Log.d("A10", "class id " + task.getId());
         ProfClass profClass = repository
                 .documentToObject(task, ProfClass.class);
         viewHolder.textView.setText(profClass.getName());

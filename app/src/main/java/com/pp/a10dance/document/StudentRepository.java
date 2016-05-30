@@ -90,6 +90,7 @@ public class StudentRepository extends BaseRepository {
             android.util.Log.d("CBL", "error updating event", e);
             e.printStackTrace();
         }
+
         return student;
 
     }

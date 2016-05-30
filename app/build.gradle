@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig {
@@ -29,14 +29,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.couchbase.lite:couchbase-lite-android:1.0.4'
-    compile 'com.android.support:cardview-v7:22.1.0'
-    compile 'com.android.support:recyclerview-v7:22.1.0'
-    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
     compile 'com.getbase:floatingactionbutton:1.9.0'
-    compile 'com.android.support:support-annotations:22.0.0'
-    compile 'com.google.android.gms:play-services-drive:7.0.0'
+    compile 'com.android.support:support-annotations:23.1.1'
+    compile 'com.google.android.gms:play-services-drive:8.4.0'
     //colored letter like gmail list
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 

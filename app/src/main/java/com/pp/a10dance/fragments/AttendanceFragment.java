@@ -44,11 +44,19 @@ public class AttendanceFragment extends Fragment {
     private StudentAttendanceRepository mStudentAttendanceRepository;
     private StudentRepository mStudentRepository;
 
+    public static AttendanceFragment createInstance(String classId) {
+        AttendanceFragment attendanceFragment = new AttendanceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(AttendanceActivity.CLASS_ID_ARGS, classId);
+        attendanceFragment.setArguments(bundle);
+        return attendanceFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mClassId = getActivity().getIntent().getStringExtra(
-                AttendanceActivity.CLASS_ID_ARGS);
+        mClassId = getArguments().getString(
+                AttendanceActivity.ATTENDANCE_ID_ARGS);
         mAttendanceId = getActivity().getIntent().getStringExtra(
                 AttendanceActivity.ATTENDANCE_ID_ARGS);
         mAttendanceRepository = new AttendanceRepository(new AndroidContext(
@@ -88,8 +96,8 @@ public class AttendanceFragment extends Fragment {
         View view = inflater
                 .inflate(R.layout.attendance_list, container, false);
         ListView listView = (ListView) view.findViewById(R.id.attendance_list);
-        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(mClassId)
-                .toLiveQuery();
+        LiveQuery liveQuery = mStudentRepository.getStudentInClassQuery(
+                mClassId).toLiveQuery();
         mAttendanceAdapter = new AttendanceAdapter(mContext, liveQuery,
                 mAttendanceId);
         listView.setAdapter(mAttendanceAdapter);
@@ -118,8 +126,8 @@ public class AttendanceFragment extends Fragment {
             Map<String, Boolean> attendanceMap = new HashMap<>();
             // get all students for the class
             try {
-                QueryEnumerator result = mStudentRepository.getStudentInClassQuery(mClassId)
-                        .run();
+                QueryEnumerator result = mStudentRepository
+                        .getStudentInClassQuery(mClassId).run();
                 Student student;
                 QueryRow row;
                 StudentAttendance studentAttendance;
