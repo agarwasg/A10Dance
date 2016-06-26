@@ -1,0 +1,26 @@
+{
+    "a10DanceWebApp": {
+        "subject" : {
+            "home": {
+                "title": "Subjects",
+                "createLabel": "नया Subject बनाएँ",
+                "createOrEditLabel": "Subject बनाएँ या संपादित करें",
+                "search": "Subject खोजें"
+            },
+            "created": "एक नया Subject [identifier: {{ param }}] तैयार है",
+            "updated": "एक Subject [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Subject [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Subject [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Subject"
+            },
+            "subjectName": "Subject Name",
+            "description": "Description",
+            "attendance": "Attendance",
+            "student": "Student",
+            "user": "User"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "subject",
+      "otherEntityName": "subject",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "student",
+      "otherEntityName": "student",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "attendanceDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "isPresent",
+      "fieldType": "Boolean"
+    }
+  ],
+  "changelogDate": "20160625213244",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "no",
+  "entityTableName": "attendance"
+}

@@ -1,0 +1,45 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "attendance",
+      "otherEntityName": "attendance",
+      "otherEntityRelationshipName": "subject"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "one-to-many",
+      "relationshipName": "student",
+      "otherEntityName": "student",
+      "otherEntityRelationshipName": "subject"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "subjectName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160625213243",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "no",
+  "entityTableName": "subject"
+}

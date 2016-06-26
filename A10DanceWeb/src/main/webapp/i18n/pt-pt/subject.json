@@ -1,0 +1,26 @@
+{
+    "a10DanceWebApp": {
+        "subject" : {
+            "home": {
+                "title": "Subjects",
+                "createLabel": "Criar um(a) novo(a) Subject",
+                "createOrEditLabel": "Criar ou editar um(a) Subject",
+                "search": "Search for Subject"
+            },
+            "created": "A new Subject is created with identifier {{ param }}",
+            "updated": "A Subject is updated with identifier {{ param }}",
+            "deleted": "A Subject is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Tem a certeza que pretende eliminar o(a) Subject {{ id }}?"
+            },
+            "detail": {
+                "title": "Subject"
+            },
+            "subjectName": "Subject Name",
+            "description": "Description",
+            "attendance": "Attendance",
+            "student": "Student",
+            "user": "User"
+        }
+    }
+}

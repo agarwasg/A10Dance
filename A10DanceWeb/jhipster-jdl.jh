@@ -1,0 +1,45 @@
+
+
+entity Student {
+    rollNumber String,
+    firstName String required,
+    lastName String required,
+    phone String,
+    email String
+}
+
+
+entity Subject {
+ subjectName String required,
+ description String,
+ 
+}
+
+entity Attendance {
+  attendanceDate ZonedDateTime,
+  description String,
+  isPresent Boolean
+}
+
+
+relationship OneToMany {
+	Subject{Attendance} to Attendance{Subject}
+}
+
+relationship OneToMany {
+	Subject{Student} to Student{Subject}
+}
+
+relationship OneToMany {
+  User{Subject} to Subject
+}
+
+relationship OneToMany {
+	Student{Attendance} to Attendance{Student}
+}
+
+paginate Student, Attendance, Subject with infinite-scroll
+
+
+
+	
