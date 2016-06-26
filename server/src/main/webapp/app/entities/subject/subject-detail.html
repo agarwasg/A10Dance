@@ -12,19 +12,11 @@
         <dd>
             <span>{{vm.subject.description}}</span>
         </dd>
-        <dt><span translate="a10DanceApp.subject.createdAt">Created At</span></dt>
-        <dd>
-            <span>{{vm.subject.createdAt | date:'medium'}}</span>
-        </dd>
         <dt><span translate="a10DanceApp.subject.student">Student</span></dt>
         <dd>
             <span ng-repeat="student in vm.subject.students">
                 <a ui-sref="student-detail({id: {{student.id}}})">{{student.name}}</a>{{$last ? '' : ', '}}
             </span>
-        </dd>
-        <dt><span translate="a10DanceApp.subject.user">User</span></dt>
-        <dd>
-            {{vm.subject.user.firstName}}
         </dd>
     </dl>
 

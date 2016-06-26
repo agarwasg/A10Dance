@@ -31,32 +31,10 @@
                     ng-model="vm.subject.description"
                      />
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="a10DanceApp.subject.createdAt" for="field_createdAt">Created At</label>
-                <div class="input-group">
-                    <input id="field_createdAt" type="text" class="form-control" name="createdAt" datetime-picker="{{dateformat}}" ng-model="vm.subject.createdAt" is-open="vm.datePickerOpenStatus.createdAt"
-                      />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdAt')"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
-                </div>
-        </div>
 
         <div class="form-group">
             <label translate="a10DanceApp.subject.student" for="field_student">Student</label>
             <select class="form-control" id="field_student" multiple name="student" ng-model="vm.subject.students" ng-options="student as student.name for student in vm.students track by student.id"></select>
-        </div>
-        <div class="form-group">
-            <label translate="a10DanceApp.subject.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" ng-model="vm.subject.user" ng-options="user as user.firstName for user in vm.users track by user.id" required>
-                <option value=""></option>
-            </select>
-        </div>
-        <div ng-show="editForm.user.$invalid">
-            <p class="help-block"
-                ng-show="editForm.user.$error.required" translate="entity.validation.required">
-                This field is required.
-            </p>
         </div>
     </div>
     <div class="modal-footer">
