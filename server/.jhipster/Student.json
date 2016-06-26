@@ -1,0 +1,38 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "subject",
+            "otherEntityName": "subject",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [],
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "rollNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160626020650",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "student",
+    "pagination": "infinite-scroll"
+}

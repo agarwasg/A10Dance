@@ -1,0 +1,26 @@
+{
+    "a10DanceApp": {
+        "subject" : {
+            "home": {
+                "title": "Subjects",
+                "createLabel": "Crear nuevo Subject",
+                "createOrEditLabel": "Crear o editar Subject",
+                "search": "Search for Subject"
+            },
+            "created": "Un nuevo Subject ha sido creado con el identificador {{ param }}",
+            "updated": "Un Subject ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Subject ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Subject {{ id }}?"
+            },
+            "detail": {
+                "title": "Subject"
+            },
+            "name": "Name",
+            "description": "Description",
+            "createdAt": "Created At",
+            "student": "Student",
+            "user": "User"
+        }
+    }
+}

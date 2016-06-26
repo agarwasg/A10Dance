@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span translate="a10DanceApp.subject.detail.title">Subject</span> {{vm.subject.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="a10DanceApp.subject.name">Name</span></dt>
+        <dd>
+            <span>{{vm.subject.name}}</span>
+        </dd>
+        <dt><span translate="a10DanceApp.subject.description">Description</span></dt>
+        <dd>
+            <span>{{vm.subject.description}}</span>
+        </dd>
+        <dt><span translate="a10DanceApp.subject.createdAt">Created At</span></dt>
+        <dd>
+            <span>{{vm.subject.createdAt | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="a10DanceApp.subject.student">Student</span></dt>
+        <dd>
+            <span ng-repeat="student in vm.subject.students">
+                <a ui-sref="student-detail({id: {{student.id}}})">{{student.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="a10DanceApp.subject.user">User</span></dt>
+        <dd>
+            {{vm.subject.user.firstName}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

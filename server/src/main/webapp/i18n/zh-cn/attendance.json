@@ -1,0 +1,26 @@
+{
+    "a10DanceApp": {
+        "attendance" : {
+            "home": {
+                "title": "Attendances",
+                "createLabel": "Create a new Attendance",
+                "createOrEditLabel": "Create or edit a Attendance",
+                "search": "Search for Attendance"
+            },
+            "created": "A new Attendance is created with identifier {{ param }}",
+            "updated": "A Attendance is updated with identifier {{ param }}",
+            "deleted": "A Attendance is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Attendance {{ id }}?"
+            },
+            "detail": {
+                "title": "Attendance"
+            },
+            "attendanceDate": "Attendance Date",
+            "description": "Description",
+            "isPresent": "Is Present",
+            "subject": "Subject",
+            "student": "Student"
+        }
+    }
+}
