@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -32,21 +30,9 @@ public class Attendance implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @NotNull
-    @Column(name = "is_present", nullable = false)
-    private Boolean isPresent;
-
     @ManyToOne
     @NotNull
     private Subject subject;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @NotNull
-    @JoinTable(name = "attendance_student",
-               joinColumns = @JoinColumn(name="attendances_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="students_id", referencedColumnName="ID"))
-    private Set<Student> students = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -72,28 +58,12 @@ public class Attendance implements Serializable {
         this.description = description;
     }
 
-    public Boolean isIsPresent() {
-        return isPresent;
-    }
-
-    public void setIsPresent(Boolean isPresent) {
-        this.isPresent = isPresent;
-    }
-
     public Subject getSubject() {
         return subject;
     }
 
     public void setSubject(Subject subject) {
         this.subject = subject;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
     }
 
     @Override
@@ -122,7 +92,6 @@ public class Attendance implements Serializable {
             "id=" + id +
             ", attendanceDate='" + attendanceDate + "'" +
             ", description='" + description + "'" +
-            ", isPresent='" + isPresent + "'" +
             '}';
     }
 }

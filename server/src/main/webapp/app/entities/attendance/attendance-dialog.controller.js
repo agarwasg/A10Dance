@@ -5,9 +5,9 @@
         .module('a10DanceApp')
         .controller('AttendanceDialogController', AttendanceDialogController);
 
-    AttendanceDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Attendance', 'Subject', 'Student'];
+    AttendanceDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Attendance', 'Subject'];
 
-    function AttendanceDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Attendance, Subject, Student) {
+    function AttendanceDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Attendance, Subject) {
         var vm = this;
 
         vm.attendance = entity;
@@ -16,7 +16,6 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.subjects = Subject.query();
-        vm.students = Student.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

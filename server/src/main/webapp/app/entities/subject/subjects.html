@@ -18,37 +18,40 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="a10DanceApp.subject.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="a10DanceApp.subject.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="subject in vm.subjects track by subject.id">
-                    <td><a ui-sref="subject-detail({id:subject.id})">{{subject.id}}</a></td>
-                    <td>{{subject.name}}</td>
+                <tr ng-repeat="subject in vm.subjects track by subject.id" >
+                    <td><a ui-sref="subject-detail({id:subject.id})">{{subject.name}}</a></td>
                     <td>{{subject.description}}</td>
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="subject-detail({id:subject.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="subject.edit({id:subject.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="subject.delete({id:subject.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-primary ">
+                            <span class="glyphicon glyphicon-upload"></span>
+                            <span class="hidden-xs hidden-sm" translate="entity.action.takeattendance"></span>
+                        </button>
+                        <!--<div class="btn-group flex-btn-group-container">-->
+
+                            <!--<button type="submit"-->
+                                    <!--ui-sref="subject-detail({id:subject.id})"-->
+                                    <!--class="btn btn-info btn-sm">-->
+                                <!--<span class="glyphicon glyphicon-eye-open"></span>-->
+                                <!--<span class="hidden-xs hidden-sm" translate="entity.action.view"></span>-->
+                            <!--</button>-->
+                            <!--<button type="submit"-->
+                                    <!--ui-sref="subject.edit({id:subject.id})"-->
+                                    <!--class="btn btn-primary btn-sm">-->
+                                <!--<span class="glyphicon glyphicon-pencil"></span>-->
+                                <!--<span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>-->
+                            <!--</button>-->
+                            <!--<button type="submit"-->
+                                    <!--ui-sref="subject.delete({id:subject.id})"-->
+                                    <!--class="btn btn-danger btn-sm">-->
+                                <!--<span class="glyphicon glyphicon-remove-circle"></span>-->
+                                <!--<span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>-->
+                            <!--</button>-->
+                        <!--</div>-->
                     </td>
                 </tr>
             </tbody>

@@ -1,7 +1,10 @@
 package com.agar.domain;
 
+import com.agar.security.SecurityUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -32,8 +35,10 @@ public class Subject implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_at")
-    private ZonedDateTime createdAt;
+    @Column(name = "created_at", nullable = false)
+    @CreatedBy
+    @JsonIgnore
+    private ZonedDateTime createdAt = ZonedDateTime.now();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -43,8 +48,9 @@ public class Subject implements Serializable {
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne
-    @NotNull
+    @CreatedBy
     private User user;
+
 
     public Long getId() {
         return id;

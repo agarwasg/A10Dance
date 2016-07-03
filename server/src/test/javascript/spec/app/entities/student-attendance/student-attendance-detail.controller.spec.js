@@ -2,35 +2,37 @@
 
 describe('Controller Tests', function() {
 
-    describe('Attendance Management Detail Controller', function() {
+    describe('StudentAttendance Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockAttendance, MockSubject;
+        var MockEntity, MockStudentAttendance, MockStudent, MockAttendance;
         var createController;
 
         beforeEach(inject(function($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
+            MockStudentAttendance = jasmine.createSpy('MockStudentAttendance');
+            MockStudent = jasmine.createSpy('MockStudent');
             MockAttendance = jasmine.createSpy('MockAttendance');
-            MockSubject = jasmine.createSpy('MockSubject');
             
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
-                'Attendance': MockAttendance,
-                'Subject': MockSubject
+                'StudentAttendance': MockStudentAttendance,
+                'Student': MockStudent,
+                'Attendance': MockAttendance
             };
             createController = function() {
-                $injector.get('$controller')("AttendanceDetailController", locals);
+                $injector.get('$controller')("StudentAttendanceDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'a10DanceApp:attendanceUpdate';
+                var eventType = 'a10DanceApp:studentAttendanceUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

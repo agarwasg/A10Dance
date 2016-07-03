@@ -18,9 +18,7 @@
             },
             "attendanceDate": "Attendance Date",
             "description": "Description",
-            "isPresent": "Is Present",
-            "subject": "Subject",
-            "student": "Student"
+            "subject": "Subject"
         }
     }
 }

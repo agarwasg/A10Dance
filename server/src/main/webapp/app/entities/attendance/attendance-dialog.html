@@ -39,18 +39,6 @@
                     ng-model="vm.attendance.description"
                      />
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="a10DanceApp.attendance.isPresent" for="field_isPresent">Is Present</label>
-            <input type="checkbox" class="form-control" name="isPresent" id="field_isPresent"
-                    ng-model="vm.attendance.isPresent"
-                     />
-            <div ng-show="editForm.isPresent.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.isPresent.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-            </div>
-        </div>
 
         <div class="form-group">
             <label translate="a10DanceApp.attendance.subject" for="field_subject">Subject</label>
@@ -61,16 +49,6 @@
         <div ng-show="editForm.subject.$invalid">
             <p class="help-block"
                 ng-show="editForm.subject.$error.required" translate="entity.validation.required">
-                This field is required.
-            </p>
-        </div>
-        <div class="form-group">
-            <label translate="a10DanceApp.attendance.student" for="field_student">Student</label>
-            <select class="form-control" id="field_student" multiple name="student" ng-model="vm.attendance.students" ng-options="student as student.name for student in vm.students track by student.id" required></select>
-        </div>
-        <div ng-show="editForm.student.$invalid">
-            <p class="help-block"
-                ng-show="editForm.student.$error.required" translate="entity.validation.required">
                 This field is required.
             </p>
         </div>

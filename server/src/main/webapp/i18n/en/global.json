@@ -10,6 +10,7 @@
                 "subject": "Subject",
                 "student": "Student",
                 "attendance": "Attendance",
+                "studentAttendance": "Student Attendance",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -91,7 +92,8 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "view": "View"
+            "view": "View",
+            "takeattendance":"Take Attendance"
         },
         "detail": {
             "field": "Field",

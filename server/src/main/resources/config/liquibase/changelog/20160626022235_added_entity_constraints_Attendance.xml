@@ -14,16 +14,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="subject"/>
 
-        <addForeignKeyConstraint baseColumnNames="attendances_id"
-                                 baseTableName="attendance_student"
-                                 constraintName="fk_attendance_student_student_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="attendance"/>
-        <addForeignKeyConstraint baseColumnNames="students_id"
-                                 baseTableName="attendance_student"
-                                 constraintName="fk_attendance_student_attendance_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="student"/>
-        
     </changeSet>
 </databaseChangeLog>

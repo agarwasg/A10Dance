@@ -111,7 +111,7 @@ public class AttendanceResource {
     @Timed
     public ResponseEntity<Attendance> getAttendance(@PathVariable Long id) {
         log.debug("REST request to get Attendance : {}", id);
-        Attendance attendance = attendanceRepository.findOneWithEagerRelationships(id);
+        Attendance attendance = attendanceRepository.findOne(id);
         return Optional.ofNullable(attendance)
             .map(result -> new ResponseEntity<>(
                 result,

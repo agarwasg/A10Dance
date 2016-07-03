@@ -8,16 +8,6 @@
                 "required"
             ],
             "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "student",
-            "otherEntityName": "student",
-            "relationshipType": "many-to-many",
-            "relationshipValidateRules": [
-                "required"
-            ],
-            "otherEntityField": "name",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -31,13 +21,6 @@
         {
             "fieldName": "description",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "isPresent",
-            "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
         }
     ],
     "changelogDate": "20160626022235",

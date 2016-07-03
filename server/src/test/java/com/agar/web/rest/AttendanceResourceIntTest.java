@@ -54,9 +54,6 @@ public class AttendanceResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
-    private static final Boolean DEFAULT_IS_PRESENT = false;
-    private static final Boolean UPDATED_IS_PRESENT = true;
-
     @Inject
     private AttendanceRepository attendanceRepository;
 
@@ -85,7 +82,6 @@ public class AttendanceResourceIntTest {
         attendance = new Attendance();
         attendance.setAttendanceDate(DEFAULT_ATTENDANCE_DATE);
         attendance.setDescription(DEFAULT_DESCRIPTION);
-        attendance.setIsPresent(DEFAULT_IS_PRESENT);
     }
 
     @Test
@@ -106,7 +102,6 @@ public class AttendanceResourceIntTest {
         Attendance testAttendance = attendances.get(attendances.size() - 1);
         assertThat(testAttendance.getAttendanceDate()).isEqualTo(DEFAULT_ATTENDANCE_DATE);
         assertThat(testAttendance.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testAttendance.isIsPresent()).isEqualTo(DEFAULT_IS_PRESENT);
     }
 
     @Test
@@ -115,24 +110,6 @@ public class AttendanceResourceIntTest {
         int databaseSizeBeforeTest = attendanceRepository.findAll().size();
         // set the field null
         attendance.setAttendanceDate(null);
-
-        // Create the Attendance, which fails.
-
-        restAttendanceMockMvc.perform(post("/api/attendances")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(attendance)))
-                .andExpect(status().isBadRequest());
-
-        List<Attendance> attendances = attendanceRepository.findAll();
-        assertThat(attendances).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIsPresentIsRequired() throws Exception {
-        int databaseSizeBeforeTest = attendanceRepository.findAll().size();
-        // set the field null
-        attendance.setIsPresent(null);
 
         // Create the Attendance, which fails.
 
@@ -157,8 +134,7 @@ public class AttendanceResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(attendance.getId().intValue())))
                 .andExpect(jsonPath("$.[*].attendanceDate").value(hasItem(DEFAULT_ATTENDANCE_DATE_STR)))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].isPresent").value(hasItem(DEFAULT_IS_PRESENT.booleanValue())));
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
     @Test
@@ -173,8 +149,7 @@ public class AttendanceResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(attendance.getId().intValue()))
             .andExpect(jsonPath("$.attendanceDate").value(DEFAULT_ATTENDANCE_DATE_STR))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.isPresent").value(DEFAULT_IS_PRESENT.booleanValue()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
     @Test
@@ -197,7 +172,6 @@ public class AttendanceResourceIntTest {
         updatedAttendance.setId(attendance.getId());
         updatedAttendance.setAttendanceDate(UPDATED_ATTENDANCE_DATE);
         updatedAttendance.setDescription(UPDATED_DESCRIPTION);
-        updatedAttendance.setIsPresent(UPDATED_IS_PRESENT);
 
         restAttendanceMockMvc.perform(put("/api/attendances")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -210,7 +184,6 @@ public class AttendanceResourceIntTest {
         Attendance testAttendance = attendances.get(attendances.size() - 1);
         assertThat(testAttendance.getAttendanceDate()).isEqualTo(UPDATED_ATTENDANCE_DATE);
         assertThat(testAttendance.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testAttendance.isIsPresent()).isEqualTo(UPDATED_IS_PRESENT);
     }
 
     @Test

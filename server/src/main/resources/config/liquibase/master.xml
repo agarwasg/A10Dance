@@ -8,9 +8,11 @@
     <include file="classpath:config/liquibase/changelog/20160626020432_added_entity_Subject.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160626020650_added_entity_Student.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160626022235_added_entity_Attendance.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160702205625_added_entity_StudentAttendance.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20160626020650_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160626020432_added_entity_constraints_Subject.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160626022235_added_entity_constraints_Attendance.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160702205625_added_entity_constraints_StudentAttendance.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

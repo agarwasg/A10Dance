@@ -1,0 +1,38 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "studentAttendance"
+        },
+        {
+            "relationshipName": "attendance",
+            "otherEntityName": "attendance",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "isPresent",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160702205625",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "student_attendance",
+    "pagination": "infinite-scroll"
+}

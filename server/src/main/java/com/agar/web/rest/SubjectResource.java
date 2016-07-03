@@ -1,5 +1,8 @@
 package com.agar.web.rest;
 
+import com.agar.domain.User;
+import com.agar.repository.UserRepository;
+import com.agar.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import com.agar.domain.Subject;
 import com.agar.repository.SubjectRepository;
@@ -30,10 +33,13 @@ import java.util.Optional;
 public class SubjectResource {
 
     private final Logger log = LoggerFactory.getLogger(SubjectResource.class);
-        
+
     @Inject
     private SubjectRepository subjectRepository;
-    
+
+    @Inject
+    private UserRepository userRepository;
+
     /**
      * POST  /subjects : Create a new subject.
      *
@@ -50,6 +56,13 @@ public class SubjectResource {
         if (subject.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("subject", "idexists", "A new subject cannot already have an ID")).body(null);
         }
+        Optional<User> user =  userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        if(user.isPresent()){
+            subject.setUser(user.get());
+        }else{
+            ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("Subject","","Unknown User")).body(null);
+        }
+
         Subject result = subjectRepository.save(subject);
         return ResponseEntity.created(new URI("/api/subjects/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("subject", result.getId().toString()))
@@ -94,7 +107,7 @@ public class SubjectResource {
     public ResponseEntity<List<Subject>> getAllSubjects(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Subjects");
-        Page<Subject> page = subjectRepository.findAll(pageable); 
+        Page<Subject> page = subjectRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/subjects");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

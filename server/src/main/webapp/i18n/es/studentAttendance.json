@@ -1,0 +1,24 @@
+{
+    "a10DanceApp": {
+        "studentAttendance" : {
+            "home": {
+                "title": "Student Attendances",
+                "createLabel": "Crear nuevo Student Attendance",
+                "createOrEditLabel": "Crear o editar Student Attendance",
+                "search": "Search for Student Attendance"
+            },
+            "created": "Un nuevo Student Attendance ha sido creado con el identificador {{ param }}",
+            "updated": "Un Student Attendance ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Student Attendance ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Student Attendance {{ id }}?"
+            },
+            "detail": {
+                "title": "Student Attendance"
+            },
+            "isPresent": "Is Present",
+            "student": "Student",
+            "attendance": "Attendance"
+        }
+    }
+}

@@ -5,9 +5,9 @@
         .module('a10DanceApp')
         .controller('AttendanceDetailController', AttendanceDetailController);
 
-    AttendanceDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Attendance', 'Subject', 'Student'];
+    AttendanceDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Attendance', 'Subject'];
 
-    function AttendanceDetailController($scope, $rootScope, $stateParams, entity, Attendance, Subject, Student) {
+    function AttendanceDetailController($scope, $rootScope, $stateParams, entity, Attendance, Subject) {
         var vm = this;
 
         vm.attendance = entity;

@@ -12,19 +12,9 @@
         <dd>
             <span>{{vm.attendance.description}}</span>
         </dd>
-        <dt><span translate="a10DanceApp.attendance.isPresent">Is Present</span></dt>
-        <dd>
-            <span>{{vm.attendance.isPresent}}</span>
-        </dd>
         <dt><span translate="a10DanceApp.attendance.subject">Subject</span></dt>
         <dd>
             <a ui-sref="subject-detail({id:vm.attendance.subject.id})">{{vm.attendance.subject.name}}</a>
-        </dd>
-        <dt><span translate="a10DanceApp.attendance.student">Student</span></dt>
-        <dd>
-            <span ng-repeat="student in vm.attendance.students">
-                <a ui-sref="student-detail({id: {{student.id}}})">{{student.name}}</a>{{$last ? '' : ', '}}
-            </span>
         </dd>
     </dl>
 
